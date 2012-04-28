@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Matrix
+Bundle-SymbolicName: gdts.module.matrixoperations
+Bundle-Version: 0.0.1.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: gdts.common;bundle-version="0.0.1",
+ org.junit;bundle-version="4.8.2"
+Service-Component: OSGI-INF/component.xml

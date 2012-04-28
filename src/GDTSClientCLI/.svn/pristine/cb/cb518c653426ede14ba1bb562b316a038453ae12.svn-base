@@ -1,0 +1,7 @@
+java ^
+-classpath ^
+..\..\eclipse-rcp-indigo-SR1-win32-WS\gdts.common\bin;^
+..\..\eclipse-rcp-indigo-SR1-win32-WS\gdts.core.commservice\bin;^
+lib\commons-cli-1.2.jar;^
+bin ^
+gdts.client.cli.ClientCli --master 192.168.1.120:856 --upload .\MatrixIntMultiplying-1.0.0.task

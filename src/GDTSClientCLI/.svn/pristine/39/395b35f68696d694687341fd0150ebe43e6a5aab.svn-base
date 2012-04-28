@@ -1,0 +1,243 @@
+package gdts.client.cli;
+
+import gdts.client.cli.model.IModel;
+import gdts.client.cli.model.Model;
+import gdts.common.GDTSNetId;
+import gdts.common.exception.InstanceNotFoundException;
+import gdts.common.exception.InvalidIPAddressException;
+import gdts.common.exception.TaskAlreadyInRepoException;
+import gdts.common.module.InstanceDescriptor;
+import gdts.common.module.TaskDescriptor;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.ConnectException;
+import java.util.Comparator;
+import java.util.List;
+
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+
+/**
+ * Hello world!
+ * 
+ */
+public class ClientCli {
+
+	private static Options options;
+
+	private static IModel model;
+
+	public static void main(String[] args) {
+
+		model = new Model();
+
+		options = createOptions();
+
+		CommandLineParser parser = new GnuParser();
+
+		try {
+			CommandLine line = parser.parse(options, args);
+
+			if (line.hasOption("master")) {
+				try {
+					model.setMasterNetId(GDTSNetId.valueOf(line
+							.getOptionValue("master")));
+				} catch (InvalidIPAddressException e) {
+					System.out.println("Invalid ip:port format!");
+					printUsage();
+					return;
+				}
+			} else {
+				System.out.println("Using default master address: "
+						+ model.getMasterNetId());
+			}
+
+			if (line.hasOption("help")) {
+				printUsage();
+			} else if (line.hasOption("ping")) {
+				try {
+					System.out.println("Pinging master at "
+							+ model.getMasterNetId());
+					model.pingMaster();
+					System.out.println("Ping succesful! Master available at "
+							+ model.getMasterNetId());
+				} catch (ConnectException e) {
+					System.out.println("Unable to connect to master at "
+							+ model.getMasterNetId());
+				}
+
+			} else if (line.hasOption("listtasks")) {
+				try {
+					System.out.println("Sending listing request to master at "
+							+ model.getMasterNetId());
+
+					List<TaskDescriptor> tasks = model.listTasks();
+
+					System.out
+							.println("Response received! Tasks available on master:\n");
+
+					String listing = "";
+					for (TaskDescriptor task : tasks) {
+						listing += task.getId();
+						listing += "\t\t";
+						listing += task.getVersion();
+						listing += "\n";
+					}
+
+					System.out.println(listing);
+
+				} catch (ConnectException exc) {
+					System.out.println("Unable to connect to master at "
+							+ model.getMasterNetId());
+				}
+			} else if (line.hasOption("listinst")) {
+				try {
+					System.out.println("Sending listing request to master at "
+							+ model.getMasterNetId());
+
+					List<InstanceDescriptor> instances = model.listInstances();
+
+					System.out
+							.println("Response received! Instances available on master:\n");
+
+					String listing = "";
+					for (InstanceDescriptor instance : instances) {
+						listing += instance.getId();
+						listing += "\t\t";
+						listing += instance.getTask();
+						listing += "\n";
+					}
+
+					System.out.println(listing);
+				} catch (ConnectException e) {
+					System.out.println("Unable to connect to master at "
+							+ model.getMasterNetId());
+				}
+
+			} else if (line.hasOption("execute")) {
+				try {
+					model.executeInstance(line.getOptionValue("execute"));
+				} catch (ConnectException e) {
+					System.out.println("Unable to connect to master at "
+							+ model.getMasterNetId());
+				} catch (InstanceNotFoundException e) {
+					System.out.println("Instance not found on master at "
+							+ model.getMasterNetId());
+				}
+				System.out.println(model.getInstanceResults());
+			} else if (line.hasOption("upload")) {
+
+				String fileName = line.getOptionValue("upload");
+				String[] strings = fileName.split("\\.");
+				String extension = strings[strings.length - 1];
+
+				try {
+					switch (extension) {
+					case "task":
+						model.uploadTaskFile(fileName, loadFile(fileName));
+						break;
+					case "inst":
+						break;
+					default:
+						System.out.println("Invalid file extension: "
+								+ extension);
+					}
+				} catch (FileNotFoundException exc) {
+					// TODO show info
+					exc.printStackTrace();
+				} catch(ConnectException exc) {
+					// TODO show info
+					exc.printStackTrace();
+				} catch (TaskAlreadyInRepoException e) {
+					// TODO show info
+					e.printStackTrace();
+				}
+
+			} else {
+				printUsage();
+			}
+
+		} catch (ParseException e) {
+			System.err.println("Parsing failed.  Reason: " + e.getMessage());
+			e.printStackTrace();
+
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	private static Options createOptions() {
+		Options options = new Options();
+
+		Option helpOption = OptionBuilder.withDescription("print this help")
+				.create("help");
+
+		Option masterOption = OptionBuilder.withArgName("ip:port").hasArg()
+				.withDescription("master ip and port").create("master");
+
+		Option pingOption = OptionBuilder.withDescription("ping master")
+				.create("ping");
+
+		Option listTasksOption = OptionBuilder.withDescription(
+				"list all tasks available on master").create("listtasks");
+
+		Option listInstancesOption = OptionBuilder.withDescription(
+				"list all task instances available on master").create(
+				"listinst");
+
+		Option executeInstanceOption = OptionBuilder.withArgName("instanceId")
+				.hasArg().withDescription("executes given instance")
+				.create("execute");
+
+		Option uploadOption = OptionBuilder
+				.withArgName("file")
+				.hasArg()
+				.withDescription(
+						"uploads task or instance file to master repository")
+				.create("upload");
+
+		options.addOption(helpOption);
+		options.addOption(masterOption);
+		options.addOption(pingOption);
+		options.addOption(listTasksOption);
+		options.addOption(listInstancesOption);
+		options.addOption(executeInstanceOption);
+		options.addOption(uploadOption);
+
+		return options;
+	}
+
+	private static void printUsage() {
+		HelpFormatter formatter = new HelpFormatter();
+		formatter.setOptPrefix("--");
+		formatter.printHelp("gdtsclient", "header", options, "footer", false);
+		// formatter.printHelp("gdtsclient", options);
+	}
+
+	private static byte[] loadFile(String fileName)
+			throws FileNotFoundException {
+		File file = new File(fileName);
+		if (!file.exists()) {
+			throw new FileNotFoundException();
+		}
+		byte[] fileContent = new byte[(int) file.length()];
+		InputStream fileInput = new FileInputStream(file);
+
+		try {
+			fileInput.read(fileContent);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return fileContent;
+	}
+}

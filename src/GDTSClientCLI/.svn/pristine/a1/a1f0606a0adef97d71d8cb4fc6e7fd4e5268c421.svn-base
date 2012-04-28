@@ -1,0 +1,26 @@
+apply plugin: 'java'
+
+version = '0.1'
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'GDTS CLI Client', 'Implementation-Version': version
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'commons-cli', name: 'commons-cli', version: '1.2'
+}
+
+sourceCompatibility = 1.7
+
+task hello << {
+    println 'Hello world!'
+}
+task intro(dependsOn: hello) << {
+    println "I'm Gradle"
+}

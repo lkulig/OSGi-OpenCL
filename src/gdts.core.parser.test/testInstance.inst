@@ -1,0 +1,26 @@
+
+TASK BEGIN
+	ID: MatrixIntMultiplying;
+	VERSION: 1.0.0;
+END
+
+zmienna1 = 5;
+
+zmienna2 = -12.8;
+
+zmienna3 = TRUE;
+
+zmienna4 = "jakiœ string";
+
+tablica1 = [43, 53, -45, -4, 5];
+
+tablica2 = [0.4, 8.2, -4.5];
+
+matrix1 = 
+	[[1, 0, 2], 
+	[-1, 3, 1]];
+	
+matrix2 = 
+	[[ 3, 1 ], 
+	[ 2, 1 ],
+	[ 1, 0 ]];

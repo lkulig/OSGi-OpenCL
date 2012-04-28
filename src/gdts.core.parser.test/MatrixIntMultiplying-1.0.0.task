@@ -1,0 +1,88 @@
+TASK MatrixIntMultiplying : 1.0.0 BEGIN
+	MODULES BEGIN
+		mo -> MatrixOperations: 1.0.0;
+		ar -> Arithmetic: 1.0.0;
+	END;
+
+	IN BEGIN
+		matrixA: MATRIX OF INTEGER;
+		matrixB: MATRIX OF INTEGER;
+	END;
+
+	OUT BEGIN
+		matrixRes: MATRIX OF INTEGER;
+	END;	
+	
+	VARS BEGIN
+		vectorsToMultA: ARRAY OF ARRAY OF INTEGER;
+		vectorsToMultB: ARRAY OF ARRAY OF INTEGER;
+		matrixSize: INTEGER;
+		resultMatrix: MATRIX OF INTEGER;
+		resultArray: ARRAY OF INTEGER;
+		slaveTasks: ARRAY OF SLAVETASKOBJ;
+		sTask: SLAVETASKOBJ;
+		slaves: ARRAY OF SLAVEOBJ;
+		nextSlave: SLAVEOBJ;
+		dataDistributed: BOOLEAN;
+		i, j: INTEGER;
+		result: INTEGER;
+	END;
+
+	FLOW BEGIN
+
+		CALL mo.verifyInput firstMatrix -> matrixA, 
+			secondMatrix -> matrixB, 
+			resultMatrixSize -> matrixSize;
+
+		CALL mo.sliceMatrixToMultiply
+			firstMatrix 		-> matrixA, 
+			secondMatrix 		-> matrixB, 
+			vectorsFromFirst 	-> vectorsToMultA, 
+			vectorsFromSecond 	-> vectorsToMultB;
+
+		FOR i = 0; i < matrixSize; i++ BEGIN
+			FOR j = 0; j < matrixSize; j++ BEGIN
+				
+				CALL GET_FREE_SLAVE_AND_BLOCK slave -> nextSlave;
+				WHILE nextSlave == NULL BEGIN
+					CALL WAIT inMilis -> 2000;
+					CALL GET_FREE_SLAVE_AND_BLOCK slave -> nextSlave;
+				END;
+				
+				CALL START_SLAVETASK 
+					slave -> nextSlave, 
+					slaveTask -> "vectorMultiplying",
+					slaveTaskObj -> sTask,
+					vectorA -> vectorsToMultA[i],
+					vectorB -> vectorsToMultB[j],
+					result -> result;
+			
+				CALL ADD_TO_ARRAY array -> slaveTasks, value -> sTask;
+			END;
+		END;
+		CALL JOIN_ALL tasks -> slaveTasks;
+	END;
+
+	SLAVETASK vectorMultiplying BEGIN
+		
+		MODULES BEGIN
+			mo -> MatrixOperations: 1.0.0;
+		END;
+
+		IN BEGIN
+			vectorA: ARRAY OF INTEGER;
+			vectorB: ARRAY OF INTEGER;
+		END;
+		
+		OUT BEGIN
+			result: INTEGER;
+		END;
+
+		FLOW BEGIN
+			CALL mo.multiplyVectors
+			firstVector		-> vectorA, 
+			secondVector 	-> vectorB, 
+			result 			-> result;
+		END;
+	END;
+END;

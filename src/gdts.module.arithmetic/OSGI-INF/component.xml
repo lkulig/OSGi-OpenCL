@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="gdts.module.arithmetic">
+   <implementation class="gdts.module.arithmetic.Arithmetic"/>
+   <service>
+      <provide interface="gdts.common.module.IModuleService"/>
+   </service>
+</scr:component>

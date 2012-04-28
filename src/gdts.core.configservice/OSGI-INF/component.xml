@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="startup" immediate="true" name="gdts.core.configservice">
+   <implementation class="gdts.core.configservice.impl.ConfigService"/>
+   <service>
+      <provide interface="gdts.core.configservice.IConfigService"/>
+   </service>
+</scr:component>

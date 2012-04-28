@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="startup" name="gdts.reposervice">
+   <implementation class="gdts.reposervice.impl.RepoService"/>
+   <service>
+      <provide interface="gdts.reposervice.IRepoService"/>
+   </service>
+   <reference bind="setModuleService" cardinality="0..n" interface="gdts.common.module.IModuleService" name="IModuleService" policy="dynamic" unbind="unsetModuleService"/>
+   <reference bind="setConfigService" cardinality="1..1" interface="gdts.core.configservice.IConfigService" name="IConfigService" policy="static" unbind="unsetConfigService"/>
+   <reference bind="setCommService" cardinality="1..1" interface="gdts.core.commservice.ICommService" name="ICommService" policy="static" unbind="unsetCommService"/>
+</scr:component>

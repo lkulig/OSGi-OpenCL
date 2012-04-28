@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="startup" deactivate="shutdown" name="gdts.core.commservice">
+   <implementation class="gdts.core.commservice.impl.CommService"/>
+   <service>
+      <provide interface="gdts.core.commservice.ICommService"/>
+   </service>
+   <reference bind="setConfigService" cardinality="1..1" interface="gdts.core.configservice.IConfigService" name="ConfigService" policy="static" unbind="unsetConfigService"/>
+</scr:component>

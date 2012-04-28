@@ -1,0 +1,32 @@
+TASK SimpleIntAddition : 1.0.0 BEGIN
+	MODULES BEGIN
+		ar -> Arithmetic: 1.0.0;
+	END;
+
+	IN BEGIN
+		first: INTEGER;
+		second: INTEGER;
+	END;
+
+	OUT BEGIN
+		result: INTEGER;
+	END;	
+	
+	VARS BEGIN
+		testowa: INTEGER;
+		i: INTEGER;
+	END;
+
+	FLOW BEGIN
+		testowa = 10;
+		i = 1;
+		FOR testowa = first; testowa < 20; testowa++ BEGIN
+			CALL PRINT text -> "obieg nr ";
+			i++;
+			CALL PRINTLN text -> i;
+		END;
+		CALL ar.addInts first -> first, 
+			second -> second, result -> result;
+	END;
+END;
+

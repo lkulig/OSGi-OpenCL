@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="GDTS Slave" uid="gdts.slave" id="gdts.core.slave.productId" application="org.eclipse.pde.build.Build" version="0.0.1" useFeatures="false" includeLaunchers="true">
+
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <programArgs>-consoleLog -console</programArgs>
+      <vmArgs>-Declipse.ignoreApp=true -Dosgi.noShutdown=true</vmArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+   </launcherArgs>
+
+   <windowImages/>
+
+
+   <launcher name="GDTSSlave">
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+
+   <vm>
+      <windows include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6</windows>
+   </vm>
+
+
+   <plugins>
+      <plugin id="com.springsource.org.antlr.runtime"/>
+      <plugin id="gdts.common"/>
+      <plugin id="gdts.common.test" fragment="true"/>
+      <plugin id="gdts.core.commservice"/>
+      <plugin id="gdts.core.configservice"/>
+      <plugin id="gdts.core.parser"/>
+      <plugin id="gdts.core.parser.test" fragment="true"/>
+      <plugin id="gdts.core.reposervice"/>
+      <plugin id="gdts.core.slave"/>
+      <plugin id="gdts.module.arithmetic"/>
+      <plugin id="gdts.module.matrixoperations"/>
+      <plugin id="gdts.module.matrixoperations.test" fragment="true"/>
+      <plugin id="javax.servlet"/>
+      <plugin id="org.eclipse.core.contenttype"/>
+      <plugin id="org.eclipse.core.jobs"/>
+      <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.core.runtime.compatibility.auth"/>
+      <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
+      <plugin id="org.eclipse.equinox.app"/>
+      <plugin id="org.eclipse.equinox.common"/>
+      <plugin id="org.eclipse.equinox.ds"/>
+      <plugin id="org.eclipse.equinox.preferences"/>
+      <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.equinox.util"/>
+      <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.osgi.services"/>
+      <plugin id="org.hamcrest.core"/>
+      <plugin id="org.junit"/>
+   </plugins>
+
+   <configurations>
+      <plugin id="com.springsource.org.antlr.runtime" autoStart="true" startLevel="0" />
+      <plugin id="gdts.common" autoStart="true" startLevel="0" />
+      <plugin id="gdts.core.commservice" autoStart="true" startLevel="0" />
+      <plugin id="gdts.core.configservice" autoStart="true" startLevel="0" />
+      <plugin id="gdts.core.parser" autoStart="true" startLevel="0" />
+      <plugin id="gdts.core.reposervice" autoStart="true" startLevel="0" />
+      <plugin id="gdts.core.slave" autoStart="true" startLevel="0" />
+      <plugin id="gdts.module.arithmetic" autoStart="true" startLevel="0" />
+      <plugin id="gdts.module.matrixoperations" autoStart="true" startLevel="0" />
+      <plugin id="javax.servlet" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.contenttype" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.jobs" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.runtime.compatibility.auth" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.app" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="1" />
+      <plugin id="org.eclipse.equinox.preferences" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.registry" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.util" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.osgi" autoStart="true" startLevel="-1" />
+      <plugin id="org.eclipse.osgi.services" autoStart="true" startLevel="0" />
+      <plugin id="org.hamcrest.core" autoStart="true" startLevel="0" />
+      <plugin id="org.junit" autoStart="true" startLevel="0" />
+   </configurations>
+
+</product>

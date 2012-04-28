@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="startup" name="gdts.core.slave">
+   <implementation class="gdts.core.slave.Slave"/>
+   <reference bind="setRepoService" cardinality="1..1" interface="gdts.reposervice.IRepoService" name="IRepoService" policy="static" unbind="unsetRepoService"/>
+   <reference bind="setCommService" cardinality="1..1" interface="gdts.core.commservice.ICommService" name="ICommService" policy="static" unbind="unsetCommService"/>
+   <reference bind="setConfigService" cardinality="1..1" interface="gdts.core.configservice.IConfigService" name="IConfigService" policy="static" unbind="unsetConfigService"/>
+</scr:component>

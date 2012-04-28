@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: gdts.client.cli.ClientCli
+Class-Path: lib\commons-cli-1.2.jar lib\gdts.common_0.0.1.jar lib\gdts.core.commservice_0.0.1.jar lib\gdts.core.configservice_0.0.1.jar
+

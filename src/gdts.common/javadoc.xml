@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" additionalparam=" -charset &quot;UTF-8&quot;" author="true" classpath="C:\eclipse-rcp-indigo-SR1-win32\plugins\org.eclipse.osgi_3.7.1.R37x_v20110808-1106.jar;C:\eclipse-rcp-indigo-SR1-win32\plugins\org.eclipse.osgi.services_3.3.0.v20110513.jar" destdir="doc" doctitle="Moduł wspólny" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="gdts.common.data.type,gdts.common.comm.messages.listing,gdts.common.comm.messages.data,gdts.common.exception,gdts.common.util,gdts.common.comm.messages,gdts.common.data,gdts.common.comm.messages.status,gdts.common.module,gdts.common.logger,gdts.common.comm,gdts.common,gdts.common.module.annotation" source="1.6" sourcepath="src" splitindex="true" use="true" version="true"/>
+    </target>
+</project>
