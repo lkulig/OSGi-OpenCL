@@ -1,7 +1,7 @@
 package gdts.common;
 
 import gdts.common.data.type.Variable;
-import gdts.common.module.ModuleDescr;
+import gdts.common.module.ModuleDescription;
 
 import java.util.Map;
 
@@ -20,5 +20,5 @@ public interface Executor {
 	 * @param module Identyfikator modułu.
 	 * @param params Parametry komendy w postaci mapy.
 	 */
-	public void commandCall(String id, ModuleDescr module, Map<String, Variable> params);
+	public void commandCall(String id, ModuleDescription module, Map<String, Variable> params);
 }

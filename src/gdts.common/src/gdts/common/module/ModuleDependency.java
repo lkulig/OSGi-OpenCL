@@ -70,7 +70,7 @@ public class ModuleDependency {
 		this.includeMax = includeMax;
 	}
 	
-	public boolean satisfied(ModuleDescr module) {
+	public boolean satisfied(ModuleDescription module) {
 		if(module.getClass().getSimpleName().equals(id)) {
 			
 			boolean lowerSatisfied = true;
@@ -90,12 +90,12 @@ public class ModuleDependency {
 		return false;
 	}
 	
-	private boolean inLowerBounds(ModuleDescr module) {
+	private boolean inLowerBounds(ModuleDescription module) {
 		return module.getVersion().isGreaterThen(this.getMin())
 			|| this.isIncludeMin() && module.getVersion().equals(this.getMin()); 
 	}
 	
-	private boolean inHigherBounds(ModuleDescr module) {
+	private boolean inHigherBounds(ModuleDescription module) {
 		return module.getVersion().isLessThen(this.getMax())
 			|| this.isIncludeMax() && module.getVersion().equals(this.getMax()); 		
 	}

@@ -2,7 +2,7 @@ package gdts.common.module;
 
 import gdts.common.data.type.Variable;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * Interfejs modułów wykonawczych.
@@ -14,15 +14,17 @@ public interface IModuleService {
 	/**
 	 * Wywołanie metody wykonuje podaną komendą z zadanymi parametrami.
 	 * 
-	 * @param id Identyfikator komendy.
-	 * @param params Lista nazwanych parametrów w postaci mapy.
+	 * @param id
+	 *            Identyfikator komendy.
+	 * @param params
+	 *            Lista nazwanych parametrów w postaci mapy.
 	 */
-	void execute(String id, Map<String, Variable> params);
-	
+	void execute(String methodName, List<Variable> parameters);
+
 	/**
 	 * Metoda zwraca deskryptor modułu wykonawczego.
 	 * 
 	 * @return Deskryptor modułu wykonawczego.
 	 */
-	public ModuleDescr getModuleDescr();
+	public ModuleDescription getModuleDescription();
 }

@@ -4,7 +4,7 @@ import gdts.common.Executor;
 import gdts.common.Version;
 import gdts.common.data.type.VNumeric;
 import gdts.common.data.type.Variable;
-import gdts.common.module.ModuleDescr;
+import gdts.common.module.ModuleDescription;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -50,8 +50,8 @@ public class TaskParseHelper {
 	protected Map<String, Variable> inputVars;
 	protected Map<String, Variable> outputVars;
 	protected Map<String, Variable> vars;
-	protected Set<ModuleDescr> modules;
-	protected Map<String, ModuleDescr> modulesAliases;
+	protected Set<ModuleDescription> modules;
+	protected Map<String, ModuleDescription> modulesAliases;
 	
 	protected Map<String, CommonTree> slavetasks;
 
@@ -239,8 +239,8 @@ public class TaskParseHelper {
 
 	private void parseModules() throws RecognitionException {
 
-		this.modules = new HashSet<ModuleDescr>();
-		this.modulesAliases = new HashMap<String, ModuleDescr>();
+		this.modules = new HashSet<ModuleDescription>();
+		this.modulesAliases = new HashMap<String, ModuleDescription>();
 
 		if (modulesTree != null) {
 			CommonTreeNodeStream nodes = new CommonTreeNodeStream(modulesTree);
@@ -254,7 +254,7 @@ public class TaskParseHelper {
 
 	protected void addModule(CommonTree id, CommonTree version, CommonTree alias) {
 
-		ModuleDescr module = getModuleInstance(id, version, alias);
+		ModuleDescription module = getModuleInstance(id, version, alias);
 		modules.add(module);
 		if (alias != null && alias.getText() != null
 				&& !alias.getText().equals("")) {
@@ -263,10 +263,10 @@ public class TaskParseHelper {
 
 	}
 
-	private ModuleDescr getModuleInstance(CommonTree id, CommonTree version,
+	private ModuleDescription getModuleInstance(CommonTree id, CommonTree version,
 			CommonTree alias) {
 
-		ModuleDescr module = new ModuleDescr();
+		ModuleDescription module = new ModuleDescription();
 		module.setId(id.getText());
 		if (version != null) {
 			module.setVersion(Version.valueOf(version.getText()));
@@ -294,7 +294,7 @@ public class TaskParseHelper {
 	
 	protected void commandCall(String id, String moduleId, Map<String, Variable> params) {
 
-		ModuleDescr module = null;
+		ModuleDescription module = null;
 
 		if (moduleId != null && !moduleId.equals("")) {
 			module = modulesAliases.get(moduleId);

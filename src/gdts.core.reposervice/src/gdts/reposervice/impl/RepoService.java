@@ -21,7 +21,7 @@ import gdts.common.exception.UnknownTaskException;
 import gdts.common.logger.SimpleLogger;
 import gdts.common.module.IModuleService;
 import gdts.common.module.InstanceDescriptor;
-import gdts.common.module.ModuleDescr;
+import gdts.common.module.ModuleDescription;
 import gdts.common.module.TaskDescriptor;
 import gdts.common.util.DirWatcher;
 import gdts.common.util.ExtensionFilenameFilter;
@@ -71,7 +71,7 @@ public class RepoService implements IRepoService, CommParty {
 			// System.out.println("Repository setted module service"
 			// + moduleService);
 			moduleServices.add(moduleService);
-			modulesMap.put(moduleService.getModuleDescr().toString(),
+			modulesMap.put(moduleService.getModuleDescription().toString(),
 					moduleService);
 		}
 	}
@@ -81,7 +81,7 @@ public class RepoService implements IRepoService, CommParty {
 			// System.out.println("Repository unsetted module service"
 			// + moduleService);
 			moduleServices.remove(moduleService);
-			modulesMap.remove(moduleService.getModuleDescr().toString());
+			modulesMap.remove(moduleService.getModuleDescription().toString());
 		}
 	}
 
@@ -212,7 +212,7 @@ public class RepoService implements IRepoService, CommParty {
 	}
 
 	@Override
-	public IModuleService getModuleService(ModuleDescr module)
+	public IModuleService getModuleService(ModuleDescription module)
 			throws ModuleNotInRepoException {
 
 		IModuleService moduleService = modulesMap.get(module.toString());

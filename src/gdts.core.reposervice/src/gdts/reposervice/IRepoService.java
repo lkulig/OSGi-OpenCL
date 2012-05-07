@@ -5,7 +5,7 @@ import gdts.common.exception.InstanceNotFoundException;
 import gdts.common.exception.ModuleNotInRepoException;
 import gdts.common.exception.UnknownTaskException;
 import gdts.common.module.IModuleService;
-import gdts.common.module.ModuleDescr;
+import gdts.common.module.ModuleDescription;
 import gdts.common.module.TaskDescriptor;
 
 import java.io.File;
@@ -38,7 +38,7 @@ public interface IRepoService {
 	 * @throws ModuleNotInRepoException Wyjątek rzucany, jeśli Moduł
 	 * nie został znaleziony w repozytorium.
 	 */
-	public IModuleService getModuleService(ModuleDescr module)
+	public IModuleService getModuleService(ModuleDescription module)
 			throws ModuleNotInRepoException;
 
 	/**
