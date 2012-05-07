@@ -25,6 +25,7 @@
       <windows include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6</windows>
    </vm>
 
+
    <plugins>
       <plugin id="com.springsource.org.antlr.runtime"/>
       <plugin id="gdts.common"/>
@@ -38,6 +39,8 @@
       <plugin id="gdts.module.arithmetic"/>
       <plugin id="gdts.module.matrixoperations"/>
       <plugin id="gdts.module.matrixoperations.test" fragment="true"/>
+      <plugin id="gdts.module.opencl"/>
+      <plugin id="gdts.tools"/>
       <plugin id="javax.servlet"/>
       <plugin id="org.eclipse.core.contenttype"/>
       <plugin id="org.eclipse.core.jobs"/>
@@ -66,6 +69,7 @@
       <plugin id="gdts.core.reposervice" autoStart="true" startLevel="0" />
       <plugin id="gdts.module.arithmetic" autoStart="true" startLevel="0" />
       <plugin id="gdts.module.matrixoperations" autoStart="true" startLevel="0" />
+      <plugin id="gdts.module.opencl" autoStart="true" startLevel="0" />
       <plugin id="javax.servlet" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.core.contenttype" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.core.jobs" autoStart="true" startLevel="0" />

@@ -1,13 +1,15 @@
 package gdts.common.module;
 
 import static gdts.common.logger.SimpleLogger.log;
-import static java.util.Arrays.asList;
 import gdts.common.Version;
 import gdts.common.data.type.Variable;
+import gdts.common.module.annotation.Command;
 import gdts.common.module.annotation.Module;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Klasa bazowa Modułów wykonawczych. Jest odpowiedzialna za analizę
@@ -28,8 +30,19 @@ public abstract class ModuleBase implements IModuleService {
 			this.moduleDescription.setVersion(Version.valueOf(moduleAnnotation
 					.version()));
 		}
-		this.moduleDescription.setDeclaredMethods(asList(this.getClass()
-				.getMethods()));
+
+		this.moduleDescription.setDeclaredMethods(getCommandMethods());
+	}
+
+	private Map<String, Method> getCommandMethods() {
+		Map<String, Method> methods = new HashMap<String, Method>();
+		for (Method method : this.getClass().getMethods()) {
+			Command command = method.getAnnotation(Command.class);
+			if (command != null) {
+				methods.put(command.id(), method);
+			}
+		}
+		return methods;
 	}
 
 	@Override
@@ -43,12 +56,7 @@ public abstract class ModuleBase implements IModuleService {
 	}
 
 	private Method findMethodBy(String methodName) {
-		for (Method method : this.getClass().getMethods()) {
-			if (method.getName().equals(methodName)) {
-				return method;
-			}
-		}
-		return null;
+		return this.moduleDescription.getDeclaredMethods().get(methodName);
 	}
 
 	private void invoke(Method method, Object[] parameters) {

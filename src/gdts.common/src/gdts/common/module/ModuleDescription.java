@@ -3,7 +3,7 @@ package gdts.common.module;
 import gdts.common.Version;
 
 import java.lang.reflect.Method;
-import java.util.List;
+import java.util.Map;
 
 /**
  * Deskryptor Modułu wykonawczego. Przechowuje informacje o jego
@@ -15,7 +15,7 @@ public class ModuleDescription {
 
 	private String id;
 	private Version version;
-	private List<Method> declaredMethods;
+	private Map<String, Method> declaredMethods;
 
 	public String getId() {
 		return id;
@@ -33,11 +33,11 @@ public class ModuleDescription {
 		this.version = version;
 	}
 
-	public List<Method> getDeclaredMethods() {
+	public Map<String, Method> getDeclaredMethods() {
 		return declaredMethods;
 	}
 
-	public void setDeclaredMethods(List<Method> methods) {
+	public void setDeclaredMethods(Map<String, Method> methods) {
 		this.declaredMethods = methods;
 	}
 
@@ -54,7 +54,8 @@ public class ModuleDescription {
 		}
 
 		if (((ModuleDescription) module).getId().equals(this.id)
-				&& ((ModuleDescription) module).getVersion().equals(this.version)) {
+				&& ((ModuleDescription) module).getVersion().equals(
+						this.version)) {
 			return true;
 		}
 

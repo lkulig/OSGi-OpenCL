@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -287,7 +288,7 @@ public class TaskParseHelper {
 	}
 
 	protected void commandCall(String id, String moduleId, String paramName, Variable paramValue) {
-		 Map<String, Variable> params = new HashMap<String, Variable>();
+		 Map<String, Variable> params = new LinkedHashMap<String, Variable>();
 		 params.put(paramName, paramValue);
 		 this.commandCall(id, moduleId, params);
 	}
@@ -324,6 +325,5 @@ public class TaskParseHelper {
 
 	public void setOutput(Map<String, Variable> taskOutput) {
 		// TODO Auto-generated method stub
-
 	}
 }

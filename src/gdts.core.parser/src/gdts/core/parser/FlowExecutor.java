@@ -7,6 +7,7 @@ import gdts.common.data.type.Variable;
 import gdts.common.logger.SimpleLogger;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -156,7 +157,7 @@ public class FlowExecutor {
      */
     private Map<String, Variable> commandParams(List<CommonTree> nodeList) {
 
-        Map<String, Variable> params = new HashMap<String, Variable>();
+        Map<String, Variable> params = new LinkedHashMap<String, Variable>();
         for (CommonTree node : nodeList) {
             // System.out.println(node.toStringTree());
             params.put(node.getChild(0).getText(), expr((CommonTree) node.getChild(1)));
